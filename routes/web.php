@@ -18,7 +18,7 @@ use App\Http\Controllers\UserController;
 
 Route::get('/admins-only', function() {
     return 'Only admin can visit here!';
-})->middleware('can:visitAdminPages'); // check account is admin or user
+})->middleware('can:visitAdminPages'); // check account is admin or user (Providers/AuthServiceProvider.php)
 
 // User related routes
 Route::get('/', [UserController::class, "showCorrectHomepage"])->name('login');
@@ -29,9 +29,9 @@ Route::post('/logout', [UserController::class, 'logout'])->middleware('mustBeLog
 // Blog post related routes
 Route::get('/create-post', [PostController::class, 'showCreateForm'])->middleware('mustBeLoggedIn');
 Route::post('/create-post', [PostController::class, 'storeNewPost'])->middleware('mustBeLoggedIn');
-Route::get('/post/{post}', [PostController::class, 'viewSinglePost']);
-Route::delete('/post/{post}', [PostController::class, 'delete'])->middleware('can:delete,post');
-Route::get('/post/{post}/edit', [PostController::class, 'showEditForm'])->middleware('can:update,post'); // ->middleware('can:update, post'): can't run 
+Route::get('/post/{post}', [PostController::class, 'viewSinglePost']); // {post}: dynamic value. Should write parameter in viewSinglePost function (PostController.php) as Post $post = {post} (web.php) because {post} is defaulted by Laravel as the ID value corresponding to each post created.
+Route::delete('/post/{post}', [PostController::class, 'delete'])->middleware('can:delete,post'); // -> Policy middleware: {post} -> middleware -> controller 
+Route::get('/post/{post}/edit', [PostController::class, 'showEditForm'])->middleware('can:update,post'); // ->middleware('can:update, post'): can't run because between ',' and 'post' have a space
 Route::put('/post/{post}', [PostController::class, 'actuallyUpdate'])->middleware('can:update,post');
 
 

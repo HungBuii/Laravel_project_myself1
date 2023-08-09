@@ -18,6 +18,7 @@
         <h4 class="my-0 mr-md-auto font-weight-normal"><a href="/" class="text-white">OurApp</a></h4>
         
         @auth
+        {{-- If login is successfully, go to homepage-feed --}}
         <div class="flex-row my-3 my-md-0">
           <a href="#" class="text-white mr-2 header-search-icon" title="Search" data-toggle="tooltip" data-placement="bottom"><i class="fas fa-search"></i></a>
           <span class="text-white mr-2 header-chat-icon" title="Chat" data-toggle="tooltip" data-placement="bottom"><i class="fas fa-comment"></i></span>
@@ -28,7 +29,8 @@
             <button class="btn btn-sm btn-secondary">Sign Out</button>
           </form>
         </div>
-        @else
+        
+        @else {{-- If login isn't successfully, back to homepage --}}
         <form action="/login" method="POST" class="mb-0 pt-2 pt-md-0">
           @csrf
           <div class="row align-items-center">
@@ -49,7 +51,7 @@
     </header>
     <!-- header ends here -->
 
-    @if (session()->has('success'))
+     @if (session()->has('success'))  {{-- success is linked to login function 'with' method in UserController.php --}}
         <div class='container container--narrow'>
           <div class="alert alert-success text-center">
             {{ session('success') }}
@@ -57,7 +59,7 @@
         </div>
     @endif
 
-    @if (session()->has('failure'))
+    @if (session()->has('failure'))  {{-- failure is linked to login function 'with' method in UserController.php --}}
         <div class='container container--narrow'>
           <div class="alert alert-danger text-center">
             {{ session('failure') }}
@@ -65,7 +67,8 @@
         </div>
     @endif
 
-    {{ $slot }}
+    {{ $slot }} 
+    {{-- Slot is used when we have an element we want to reuse and it comes with <x-layout> in other blade --}}
 
     <!-- footer begins -->
     <footer class="border-top text-center small text-muted py-3">

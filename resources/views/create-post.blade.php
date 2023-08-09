@@ -5,7 +5,8 @@
           <div class="form-group">
             <label for="post-title" class="text-muted mb-1"><small>Title</small></label>
             <input value="{{ old('title') }}" name="title" id="post-title" class="form-control form-control-lg form-control-title" type="text" placeholder="" autocomplete="off" />
-            @error('title')
+            @error('title') 
+            {{-- title data in SQL --}}
                 <p class="m-0 small alert alert-danger shadow-sm">{{ $message }}</p>
             @enderror
           </div>
