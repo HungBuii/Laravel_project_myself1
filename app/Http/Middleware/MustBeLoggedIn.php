@@ -17,7 +17,7 @@ class MustBeLoggedIn
     public function handle(Request $request, Closure $next) // Clousre: Closures are anonymous functions that don't belong to any class or object. Closures don't have specified names and can also access variables outside of scope without using any global variables
     {
         if (auth()->check()) {
-            return $next($request);
+            return $next($request); // if incoming request comes in will continue function after
         }
         return redirect('/')->with('failure', 'You must be logged in');
     }

@@ -14,6 +14,7 @@ class Post extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id'); // Reference the '$post' field containing the id account user (single-post.blade.php) to the users table database via the 'user_id' field
+        // 'user_id = auth()->id() in storeNewPost function (PostController.php)
     }
 
 }

@@ -5,11 +5,48 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
+    public function storeAvatar(Request $request) {
+        $request->validate([
+            'avatar' => 'required|image|max:3000' // max:3000 KB
+        ]);
+
+        $user = auth()->user();
+
+        $filename = $user->id . '-' . uniqid() . '.jpg';
+        // uniqid(): generated string of text
+
+
+        // $request->file('avatar')->store('public/avatars');
+        
+        // The third 'Intervention Image Package'
+        $imgData = Image::make($request->file('avatar'))->fit(120)->encode('jpg');
+        Storage::put('public/avatars/' . $filename, $imgData);
+        
+        $oldAvatar = $user->avatar;
+
+        $user->avatar = $filename;
+        $user->save(); // save image in database
+        
+        if ($oldAvatar != "/fallback-avatar.jpg") {
+            Storage::delete(str_replace("/storage/", "public/", $oldAvatar));
+        } // delete previous avatar
+
+        return back()->with('success', "Congrats on the new avatar.");
+
+    }
+
+    public function showAvatarForm() {
+        return view('avatar-form');
+    }
+
     public function profile(User $user) {
-        return view('profile-posts', ['username' => $user->username, 'posts' => $user->posts()->latest()->get(), 'postCount' => $user->posts()->count()]);
+        return view('profile-posts', ['avatar' => $user->avatar, 'username' => $user->username, 'posts' => $user->posts()->latest()->get(), 'postCount' => $user->posts()->count()]);
+        // post() function in User Model
     }
 
     public function logout()

@@ -70,7 +70,7 @@ class PostPolicy
     public function delete(User $user, Post $post)
     {
         //
-        if ($user->isAdmin === 1) {
+        if ($user->isAdmin === 1) { // if true admin can update and delete posts of other user 
             return true;
         }
         return $user->id === $post->user_id;

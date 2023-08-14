@@ -14,7 +14,7 @@ class PostController extends Controller
             'body' => 'required'
         ]);
 
-        $incomingFields['title'] = strip_tags($incomingFields['title']);
+        $incomingFields['title'] = strip_tags($incomingFields['title']); // strip_tags will return a string delimited from HTML or PHP tags
         $incomingFields['body'] = strip_tags($incomingFields['body']);
 
         $post->update($incomingFields);
@@ -33,11 +33,12 @@ class PostController extends Controller
 
     public function viewSinglePost(Post $post) // $post contains the id value for each post created and must match the incoming variable from route. Power of model in Laravel
     {
-        $post['body'] = strip_tags(Str::markdown($post->body), '<p><ul><ol><li><strong><em><h3><br>');
+        // $post['body'] = strip_tags(Str::markdown($post->body), '<p><ul><ol><li><strong><em><h3><br>'); // https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+        // Str::markdown: present HTML and escape malicious code
         return view('single-post', ['post' => $post]); // After processing the "$post" data, it will convert the data to the variable name 'post'
     }
 
-    public function storeNewPost(Request $request)
+    public function storeNewPost(Request $request) // create a post
     {
         $incomingFields = $request->validate([
             'title' => 'required',

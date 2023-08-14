@@ -1,12 +1,13 @@
 <x-layout>
     <div class="container py-md-5 container--narrow">
         <form action="/post/{{$post->id}}" method="POST">
-          <p><small><strong><a href="/post/{{$post->id}}">&laquo; Back to post permalink</a></strong></small></p>  
+          <p><small><strong><a href="/post/{{$post->id}}">&laquo; Back to post</a></strong></small></p>  
           @csrf
             @method('PUT')
           <div class="form-group">
             <label for="post-title" class="text-muted mb-1"><small>Title</small></label>
             <input value="{{ old('title', $post->title) }}" name="title" id="post-title" class="form-control form-control-lg form-control-title" type="text" placeholder="" autocomplete="off" />
+            {{-- old('title', $post->title): retrieve data from database --}}
             @error('title')
                 <p class="m-0 small alert alert-danger shadow-sm">{{ $message }}</p>
             @enderror
