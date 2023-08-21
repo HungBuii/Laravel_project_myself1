@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Follow;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Intervention\Image\Facades\Image;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
+    // storeAvatar
     public function storeAvatar(Request $request) {
         $request->validate([
             'avatar' => 'required|image|max:3000' // max:3000 KB
@@ -40,15 +42,25 @@ class UserController extends Controller
 
     }
 
+    // showAvatarForm
     public function showAvatarForm() {
         return view('avatar-form');
     }
 
+    // profile
     public function profile(User $user) {
-        return view('profile-posts', ['avatar' => $user->avatar, 'username' => $user->username, 'posts' => $user->posts()->latest()->get(), 'postCount' => $user->posts()->count()]);
+        $currentlyFollowing = 0;
+
+        if (auth()->check()) {
+            $currentlyFollowing = Follow::where([['user_id', '=', auth()->user()->id], ['followeduser', '=', $user->id]])->count();
+        }
+
+
+        return view('profile-posts', ['currentlyFollowing' => $currentlyFollowing, 'avatar' => $user->avatar, 'username' => $user->username, 'posts' => $user->posts()->latest()->get(), 'postCount' => $user->posts()->count()]);
         // post() function in User Model
     }
 
+    // logout
     public function logout()
     {
         auth()->logout(); // verify correct user account want to logout
@@ -56,6 +68,7 @@ class UserController extends Controller
         return redirect('/')->with('success', 'You are now logged out!');
     }
 
+    // showCorrectHomepage
     public function showCorrectHomepage()
     {
         if (auth()->check()) {
@@ -67,6 +80,7 @@ class UserController extends Controller
         }
     }
 
+    // login
     public function login(Request $request)
     {
         $incomingFields = $request->validate([
@@ -84,6 +98,7 @@ class UserController extends Controller
 
     }
 
+    // register
     public function register(Request $request)
     {
         $incomingFields = $request->validate([
