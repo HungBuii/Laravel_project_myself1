@@ -48,16 +48,21 @@ class UserController extends Controller
         return view('avatar-form');
     }
 
+// -------------------------------------------------------------------------------------------
+
     // getSharedData
     private function getSharedData($user) {
         $currentlyFollowing = 0;
 
         if (auth()->check()) {
             $currentlyFollowing = Follow::where([['user_id', '=', auth()->user()->id], ['followeduser', '=', $user->id]])->count();
+            // If the user is following $user, then it will count the number of rows in the database table using the count() function. 
+            // $currentlyFollowing = numbers of rows 
         }
 
-        // If View:share called, will provide that data for the object to use
-        View::share('sharedData', ['currentlyFollowing' => $currentlyFollowing, 'avatar' => $user->avatar, 'username' => $user->username, 'posts' => $user->posts()->latest()->get(), 'postCount' => $user->posts()->count()]);
+        // If View:share called, it will display data with all laravel views through ['currentlyFollowing'...]. 
+        // Separating the data will help the user to get or not get that data to avoid focusing on a duplicate view when separating that view into many other views.
+        View::share('sharedData', ['currentlyFollowing' => $currentlyFollowing, 'avatar' => $user->avatar, 'username' => $user->username, 'posts' => $user->posts()->latest()->get(), 'postCount' => $user->posts()->count(), 'followerCount' => $user->followers()->count(), 'followingCount' => $user->followingTheseUsers()->count()]);
     }
 
     // profile
@@ -70,14 +75,16 @@ class UserController extends Controller
     // profileFollowers
     public function profileFollowers(User $user) {
         $this->getSharedData($user);
-        return view('profile-followers', ['posts' => $user->posts()->latest()->get()]);
+        return view('profile-followers', ['followers' => $user->followers()->latest()->get()]);
     }
 
     // profileFollowing
     public function profileFollowing(User $user) {
         $this->getSharedData($user);
-        return view('profile-following', ['posts' => $user->posts()->latest()->get()]);
+        return view('profile-following', ['following' => $user->followingTheseUsers()->latest()->get()]);
     }
+
+// -------------------------------------------------------------------------------------------
 
     // logout
     public function logout()

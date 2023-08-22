@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    // actuallyUpdate: Update post
     public function actuallyUpdate(Post $post, Request $request) {
         $incomingFields = $request->validate([
             'title' => 'required',
@@ -22,15 +23,18 @@ class PostController extends Controller
         return back()->with('success', 'Post successfully update.');
     }
 
+    // showEditForm: final update post
     public function showEditForm(Post $post) {
         return view('edit-post', ['post' => $post]);
     }
 
+    // delete: delete post
     public function delete(Post $post) {
         $post->delete();
         return redirect('/profile/' . auth()->user()->username)->with('success', 'Post successfully deleted.');
     }
 
+    // viewSinglePost
     public function viewSinglePost(Post $post) // $post contains the id value for each post created and must match the incoming variable from route. Power of model in Laravel
     {
         // $post['body'] = strip_tags(Str::markdown($post->body), '<p><ul><ol><li><strong><em><h3><br>'); // https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
@@ -38,6 +42,7 @@ class PostController extends Controller
         return view('single-post', ['post' => $post]); // After processing the "$post" data, it will convert the data to the variable name 'post'
     }
 
+    // storeNewPost: save post
     public function storeNewPost(Request $request) // create a post
     {
         $incomingFields = $request->validate([
@@ -55,6 +60,7 @@ class PostController extends Controller
         return redirect("/post/{$newPost->id}")->with('success', 'New post successfully created.');
     }
 
+    // showCreateForm
     public function showCreateForm()
     {
         return view('create-post');
