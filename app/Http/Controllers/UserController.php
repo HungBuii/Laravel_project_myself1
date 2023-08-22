@@ -62,7 +62,9 @@ class UserController extends Controller
 
         // If View:share called, it will display data with all laravel views through ['currentlyFollowing'...]. 
         // Separating the data will help the user to get or not get that data to avoid focusing on a duplicate view when separating that view into many other views.
-        View::share('sharedData', ['currentlyFollowing' => $currentlyFollowing, 'avatar' => $user->avatar, 'username' => $user->username, 'posts' => $user->posts()->latest()->get(), 'postCount' => $user->posts()->count(), 'followerCount' => $user->followers()->count(), 'followingCount' => $user->followingTheseUsers()->count()]);
+        View::share('sharedData', ['currentlyFollowing' => $currentlyFollowing, 'avatar' => $user->avatar, 
+        'username' => $user->username, 'posts' => $user->posts()->latest()->get(), 'postCount' => $user->posts()->count(), 
+        'followerCount' => $user->followers()->count(), 'followingCount' => $user->followingTheseUsers()->count()]);
     }
 
     // profile
