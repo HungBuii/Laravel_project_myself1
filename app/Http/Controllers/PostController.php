@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    // search
+    public function search($term) {
+        $posts = Post::search($term)->get(); // https://laravel.com/docs/9.x/scout
+        $posts->load('user:id,username,avatar');
+        return $posts;
+    }
+
     // actuallyUpdate: Update post
     public function actuallyUpdate(Post $post, Request $request) {
         $incomingFields = $request->validate([
