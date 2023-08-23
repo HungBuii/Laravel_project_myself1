@@ -87,6 +87,17 @@ class UserController extends Controller
     }
 
 // -------------------------------------------------------------------------------------------
+    // showCorrectHomepage
+    public function showCorrectHomepage()
+    {
+        if (auth()->check()) {
+            // check: true/false
+            return view('homepage-feed', ['posts' => auth()->user()->feedPosts()->latest()->paginate(4)]);
+        }
+        else {
+            return view('homepage');
+        }
+    }
 
     // logout
     public function logout()
@@ -94,18 +105,6 @@ class UserController extends Controller
         auth()->logout(); // verify correct user account want to logout
         // https://stackoverflow.com/questions/43585416/how-to-logout-and-redirect-to-login-page-using-laravel-5-4 
         return redirect('/')->with('success', 'You are now logged out!');
-    }
-
-    // showCorrectHomepage
-    public function showCorrectHomepage()
-    {
-        if (auth()->check()) {
-            // check: true/false
-            return view('homepage-feed');
-        }
-        else {
-            return view('homepage');
-        }
     }
 
     // login
