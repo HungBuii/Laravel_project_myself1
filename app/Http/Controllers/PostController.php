@@ -49,7 +49,7 @@ class PostController extends Controller
         return view('single-post', ['post' => $post]); // After processing the "$post" data, it will convert the data to the variable name 'post'
     }
 
-    // storeNewPost: save post
+    // storeNewPost: create and save post
     public function storeNewPost(Request $request) // create a post
     {
         $incomingFields = $request->validate([
