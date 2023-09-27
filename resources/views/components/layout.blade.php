@@ -41,6 +41,7 @@
           <div class="row align-items-center">
             <div class="col-md mr-0 pr-md-0 mb-3 mb-md-0">
               <input name="loginusername" class="form-control form-control-sm input-dark" type="text" placeholder="Username" autocomplete="off" />
+              {{-- placeholder: displays pre-filled text --}}
             </div>
             <div class="col-md mr-0 pr-md-0 mb-3 mb-md-0">
               <input name="loginpassword" class="form-control form-control-sm input-dark" type="password" placeholder="Password" />
@@ -74,6 +75,7 @@
 
     {{ $slot }} 
     {{-- Slot is used when we have an element we want to reuse and it comes with <x-layout> in other blade --}}
+    {{-- Slot are a way to break up the content of a component into parts that can be changed independently. --}}
 
     <!-- footer begins -->
     <footer class="border-top text-center small text-muted py-3">

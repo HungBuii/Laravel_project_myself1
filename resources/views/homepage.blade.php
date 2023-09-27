@@ -3,8 +3,8 @@
     <div class="container py-md-5">
         <div class="row align-items-center">
           <div class="col-lg-7 py-3 py-md-5">
-            <h1 class="display-3">Remember Writing?</h1>
-            <p class="lead text-muted">Are you sick of short tweets and impersonal &ldquo;shared&rdquo; posts that are reminiscent of the late 90&rsquo;s email forwards? We believe getting back to actually writing is the key to enjoying the internet again.</p>
+            <h1 class="display-3">Create your own post?</h1>
+            <p class="lead text-muted">With just simple operations like creating an account, logging in, creating posts, writing loving words to your relatives or friends.</p>
           </div>
           <div class="col-lg-5 pl-lg-5 pb-3 py-lg-5">
             <form action="/register" method="POST" id="registration-form">
@@ -14,6 +14,7 @@
                 <input value="{{old('username')}}" name="username" id="username-register" class="form-control" type="text" placeholder="Pick a username" autocomplete="off" />
                 @error('username')
                     <p class="m-0 small alert alert-danger shadow-sm">{{$message}}</p>
+                    {{-- Laravel will provide an 'error' message. --}}
                 @enderror
               </div>
   
