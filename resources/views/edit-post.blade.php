@@ -4,6 +4,7 @@
           <p><small><strong><a href="/post/{{$post->id}}">&laquo; Back to post</a></strong></small></p>  
           @csrf
             @method('PUT')
+            {{-- Used to update existing data on the server. --}}
           <div class="form-group">
             <label for="post-title" class="text-muted mb-1"><small>Title</small></label>
             <input value="{{ old('title', $post->title) }}" name="title" id="post-title" class="form-control form-control-lg form-control-title" type="text" placeholder="" autocomplete="off" />

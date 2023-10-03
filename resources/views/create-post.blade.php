@@ -5,6 +5,8 @@
           <div class="form-group">
             <label for="post-title" class="text-muted mb-1"><small>Title</small></label>
             <input value="{{ old('title') }}" name="title" id="post-title" class="form-control form-control-lg form-control-title" type="text" placeholder="" autocomplete="off" />
+            {{-- old('title'): This attribute specifies that the initial value of the input field should be the value of the title field in the old form data.
+                               The old form data is the data that was submitted to the server in the previous form submission, but was not valid for some reason. (validation)  --}}
             @error('title') 
             {{-- title data in SQL --}}
                 <p class="m-0 small alert alert-danger shadow-sm">{{ $message }}</p>

@@ -9,11 +9,11 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     // search
-    public function search($term) {
-        $posts = Post::search($term)->get(); // https://laravel.com/docs/9.x/scout
-        $posts->load('user:id,username,avatar');
-        return $posts;
-    }
+    // public function search($term) {
+    //     $posts = Post::search($term)->get(); // https://laravel.com/docs/9.x/scout
+    //     $posts->load('user:id,username,avatar');
+    //     return $posts;
+    // }
 
     // actuallyUpdate: Update post
     public function actuallyUpdate(Post $post, Request $request) {
@@ -44,8 +44,6 @@ class PostController extends Controller
     // viewSinglePost
     public function viewSinglePost(Post $post) // $post contains the id value for each post created and must match the incoming variable from route. Power of model in Laravel
     {
-        // $post['body'] = strip_tags(Str::markdown($post->body), '<p><ul><ol><li><strong><em><h3><br>'); // https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
-        // Str::markdown: present HTML and escape malicious code
         return view('single-post', ['post' => $post]); // After processing the "$post" data, it will convert the data to the variable name 'post'
     }
 

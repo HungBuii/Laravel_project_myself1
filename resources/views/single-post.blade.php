@@ -2,14 +2,16 @@
     <div class="container py-md-5 container--narrow">
         <div class="d-flex justify-content-between">
           <h2>{{ $post->title }}</h2>
-          @can('update', $post) {{-- policy with update in CRUD --}}
+          @can('update', $post) {{-- policy with update --}}
             <span class="pt-2">
               
+              {{-- Edit post URL button --}}
               <a href="/post/{{$post->id}}/edit" class="text-primary mr-2" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fas fa-edit"></i></a>
               
+              {{-- Delete post button --}}
               <form class="delete-post-form d-inline" action="/post/{{ $post->id }}" method="POST">
                 @csrf
-                @method('DELETE') {{-- policy with delete in CRUD --}}
+                @method('DELETE') {{-- Used to delete data from the server from URL example "post/1" or action="/post/{{ $post->id }}" --}}
                 <button class="delete-post-button text-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fas fa-trash"></i></button>
               </form>
 

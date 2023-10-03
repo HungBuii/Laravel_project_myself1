@@ -4,7 +4,6 @@
           <img class="avatar-small" src="{{$sharedData['avatar']}}" /> {{ $sharedData['username'] }}
           
           @auth  
-          {{--auth: if login will display --}}
             @if (!$sharedData['currentlyFollowing'] AND auth()->user()->username != $sharedData['username']) 
             {{--query via database --}}
               <form class="ml-2 d-inline" action="/create-follow/{{$sharedData['username']}}" method="POST">
