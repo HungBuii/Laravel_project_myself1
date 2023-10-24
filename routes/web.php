@@ -17,9 +17,6 @@ use App\Http\Controllers\FollowController;
 |
 */
 
-Route::get('/admins-only', function() {
-    return 'Only admin can visit here!';
-})->middleware('can:visitAdminPages'); // check account is admin or user (Providers/AuthServiceProvider.php)
 
 // User related routes
 Route::get('/', [UserController::class, "showCorrectHomepage"])->name('login'); // 
@@ -41,7 +38,6 @@ Route::get('/post/{post}', [PostController::class, 'viewSinglePost']); // {post}
 Route::delete('/post/{post}', [PostController::class, 'delete'])->middleware('can:delete,post'); // -> Policy middleware: {post} -> middleware -> controller 
 Route::get('/post/{post}/edit', [PostController::class, 'showEditForm'])->middleware('can:update,post'); // middleware('can:update,post'): if true can continue, false can't continue || >middleware('can:update, post'): can't run because between ',' and 'post' have a space
 Route::put('/post/{post}', [PostController::class, 'actuallyUpdate'])->middleware('can:update,post');
-// Route::get('/search/{term}', [PostController::class, 'search']);
 
 //Profile related routes
 Route::get('/profile/{user:username}', [UserController::class, 'profile']);
