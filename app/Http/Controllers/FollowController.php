@@ -24,8 +24,8 @@ class FollowController extends Controller
 
         // new follow if u don't already follow that person.
         $newFollow = new Follow;
-        $newFollow->user_id = auth()->user()->id; // model
-        $newFollow->followeduser = $user->id; // URL request
+        $newFollow->user_id = auth()->user()->id;
+        $newFollow->followeduser = $user->id;
         $newFollow->save(); // model
 
         return back()->with('success', 'User successfully followed.');

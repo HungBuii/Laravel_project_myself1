@@ -19,7 +19,7 @@ use App\Http\Controllers\FollowController;
 
 
 // User related routes
-Route::get('/', [UserController::class, "showCorrectHomepage"])->name('login'); // 
+Route::get('/', [UserController::class, "showCorrectHomepage"])->name('login'); // /Middleware/Authenticate.php
 Route::post('/register', [UserController::class, 'register'])->middleware('guest'); //
 Route::post('/login', [UserController::class, 'login'])->middleware('guest');
 Route::post('/logout', [UserController::class, 'logout'])->middleware('mustBeLoggedIn');
@@ -36,7 +36,7 @@ Route::get('/create-post', [PostController::class, 'showCreateForm'])->middlewar
 Route::post('/create-post', [PostController::class, 'storeNewPost'])->middleware('mustBeLoggedIn');
 Route::get('/post/{post}', [PostController::class, 'viewSinglePost']); // {post}: dynamic value. Should write parameter in viewSinglePost function (PostController.php) as Post $post = {post} (web.php) because {post} is defaulted by Laravel as the ID value corresponding to each post created.
 Route::delete('/post/{post}', [PostController::class, 'delete'])->middleware('can:delete,post'); // -> Policy middleware: {post} -> middleware -> controller 
-Route::get('/post/{post}/edit', [PostController::class, 'showEditForm'])->middleware('can:update,post'); // middleware('can:update,post'): if true can continue, false can't continue || >middleware('can:update, post'): can't run because between ',' and 'post' have a space
+Route::get('/post/{post}/edit', [PostController::class, 'showEditForm'])->middleware('can:update,post');
 Route::put('/post/{post}', [PostController::class, 'actuallyUpdate'])->middleware('can:update,post');
 
 //Profile related routes

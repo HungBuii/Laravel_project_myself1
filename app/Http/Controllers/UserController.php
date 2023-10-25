@@ -71,7 +71,6 @@ class UserController extends Controller
     public function profile(User $user) {
         $this->getSharedData($user);
         return view('profile-posts', ['posts' => $user->posts()->latest()->get()]);
-        // post() function in User Model
     }
 
     // profileFollowers
@@ -90,12 +89,12 @@ class UserController extends Controller
     // showCorrectHomepage
     public function showCorrectHomepage()
     {
-        if (auth()->check()) {
+        if (auth()->check()) { // Authenticate.php
             // check true condition in login function
             return view('homepage-feed', ['posts' => auth()->user()->feedPosts()->latest()->paginate(5)]);
             // paginate(5) limiting the results to 5 per page
         }
-        else { // false
+        else {
             return view('homepage');
         }
     }
@@ -116,7 +115,7 @@ class UserController extends Controller
             'loginpassword' => 'required'
         ]);
 
-        if (auth()->attempt(['username' => $incomingFields['loginusername'], 'password' => $incomingFields['loginpassword']])) { // attempt method will return true or false
+        if (auth()->attempt(['username' => $incomingFields['loginusername'], 'password' => $incomingFields['loginpassword']])) {
             $request->session()->regenerate(); // @session directive is a Blade directive used within your Blade views to work with session data. session()->regenerate() is used to regenerate the session ID after a successful login attempt, ensuring that the session ID changes and enhancing security.
             return redirect('/')->with('success', 'You have successfully logged in!');
         }
@@ -133,12 +132,12 @@ class UserController extends Controller
             'username' => ['required', 'min:3', 'max:20', Rule::unique('users', 'username')],
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => ['required', 'min:8', 'confirmed']
-        ]); // Verify that the fields are filled in correctly. If not it will show error notification when user register successfully.
+        ]);
 
         $incomingFields['password'] = bcrypt($incomingFields['password']); // encrypt password by 'bcrypt'
 
         $user = User::create($incomingFields);
-        auth()->login($user); // 
+        auth()->login($user);
         return redirect('/')->with('success', 'Thank you for creating an account!'); 
     }
 }
