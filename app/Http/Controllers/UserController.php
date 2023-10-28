@@ -26,7 +26,7 @@ class UserController extends Controller
 
         // $request->file('avatar')->store('public/avatars');
         
-        // The third 'Intervention Image Package'
+        // The third 'Intervention Image Package': edit image
         $imgData = Image::make($request->file('avatar'))->fit(120)->encode('jpg');
         Storage::put('public/avatars/' . $filename, $imgData);
         
