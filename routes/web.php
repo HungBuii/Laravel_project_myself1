@@ -38,6 +38,10 @@ Route::get('/post/{post}', [PostController::class, 'viewSinglePost']); // {post}
 Route::delete('/post/{post}', [PostController::class, 'delete'])->middleware('can:delete,post'); // -> Policy middleware: {post} -> middleware -> controller 
 Route::get('/post/{post}/edit', [PostController::class, 'showEditForm'])->middleware('can:update,post');
 Route::put('/post/{post}', [PostController::class, 'actuallyUpdate'])->middleware('can:update,post');
+Route::get('/search', function () {
+    return view('search-post');
+});
+Route::post('/search', [PostController::class, 'search'])->name('search');
 
 //Profile related routes
 Route::get('/profile/{user:username}', [UserController::class, 'profile']);

@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    // Search post
+    public function search(Request $request){
+        $posts = Post::where('title', 'LIKE', '%' . $request->search . '%')->get();
+        if (empty($request->search)) {
+            $posts = [];
+        }
+        return view('search-post', ['posts' => $posts]);
+    }
 
     // actuallyUpdate: Update post
     public function actuallyUpdate(Post $post, Request $request) {

@@ -26,6 +26,7 @@
         @auth
         {{-- If login is successfully, go to homepage-feed --}}
         <div class="flex-row my-3 my-md-0">
+          <a href="/search" class="text-white mr-2 header-search-icon" title="Search" data-toggle="tooltip" data-placement="bottom"><i class="fas fa-search"></i></a>
           <a href="/profile/{{ auth()->user()->username }}" class="mr-2"><img title="My Profile" data-toggle="tooltip" data-placement="bottom" style="width: 32px; height: 32px; border-radius: 16px" src="{{auth()->user()->avatar}}" /></a>
           <a class="btn btn-sm btn-success mr-2" href="/create-post">Create Post</a>
           <form action="/logout" method="POST" class="d-inline">
