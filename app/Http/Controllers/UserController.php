@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
+    
+
     // storeAvatar
     public function storeAvatar(Request $request) {
         $request->validate([
@@ -57,7 +59,6 @@ class UserController extends Controller
         if (auth()->check()) {
             $currentlyFollowing = Follow::where([['user_id', '=', auth()->user()->id], ['followeduser', '=', $user->id]])->count();
             // If the user is following $user, then it will count the number of rows in the database table using the count() function. 
-            // $currentlyFollowing = numbers of rows 
         }
 
         // If View:share called, it will display data with all laravel views. 

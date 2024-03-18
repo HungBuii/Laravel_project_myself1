@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class FollowController extends Controller
 {
+
     // createFollow
     public function createFollow(User $user) {
         // you cannot follow yourself

@@ -47,3 +47,4 @@ Route::post('/search', [PostController::class, 'search'])->name('search');
 Route::get('/profile/{user:username}', [UserController::class, 'profile']);
 Route::get('/profile/{user:username}/followers', [UserController::class, 'profileFollowers']);
 Route::get('/profile/{user:username}/following', [UserController::class, 'profileFollowing']);
+Route::post('/profile/{user:username}/like', [LikeController::class, 'likePerson']);
